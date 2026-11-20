@@ -1,23 +1,24 @@
 # Creative Writing Prompter
 
-[![Built with askThili](https://ask.thili.ai/api/v1/public/projects/296e82g45q/badge.svg)](https://ask.thili.ai/b/296e82g45q)
-
 A Python-based command-line application that helps writers overcome writer's block using context-aware next-word suggestions and text generation.
 
 ## Project Overview
 
-Creative Writing Prompter uses an n-gram language model trained on a collection of short stories. It analyzes word sequences and predicts possible next words based on the supplied context.
+Creative Writing Prompter is an NLP project that implements a statistical n-gram language model from scratch.
+
+It learns word-sequence patterns from a built-in collection of short stories and uses conditional probabilities to suggest likely next words. It also generates text using weighted random sampling.
 
 ## Features
 
 - Text preprocessing and tokenization
 - Short-story corpus preparation
-- Unigram and bigram counting
+- N-gram counting
 - Maximum Likelihood Estimation (MLE)
 - Add-k smoothing for unseen word combinations
 - Context-aware next-word suggestions
 - Text generation using weighted random sampling
-- Interactive command-line interface
+- Command-line interface
+- Automated unit and integration tests
 
 ## Technologies Used
 
@@ -27,11 +28,16 @@ Creative Writing Prompter uses an n-gram language model trained on a collection 
 - Probability and Statistical Language Modelling
 - Pytest
 - Git and GitHub
+- GitHub Actions
 
 ## Project Structure
 
 ```text
 creative-writing-prompter/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 │
 ├── app/
 │   ├── __init__.py
@@ -44,15 +50,11 @@ creative-writing-prompter/
 │   ├── test_core.py
 │   └── test_smoke.py
 │
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-│
 ├── .env.example
 ├── .gitignore
 ├── README.md
-├── requirements.txt
-└── pytest.ini
+├── pytest.ini
+└── requirements.txt
 ```
 
 ## Installation and Setup
@@ -60,13 +62,13 @@ creative-writing-prompter/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/Shreyaratnakar26/creative-writing-prompter.git
 cd creative-writing-prompter
 ```
 
 ### 2. Create a virtual environment
 
-Windows:
+For Windows:
 
 ```powershell
 python -m venv .venv
@@ -81,33 +83,59 @@ python -m pip install -r requirements.txt
 
 ### 4. Run the application
 
-Check whether the application is working:
-
 ```bash
 python -m app.cli hello
 ```
 
+Expected output:
+
+```text
+Creative Writing Prompter is ready.
+```
+
 ## Usage
 
-### Next-word suggestions
+### 1. Next-word suggestions
 
 ```bash
 python -m app.cli suggest "once upon a time"
 ```
 
-### Generate text
+Example output:
+
+```text
+Next-word suggestions:
+a: 0.0364
+adventure: 0.0182
+an: 0.0182
+and: 0.0182
+beautiful: 0.0182
+```
+
+### 2. Generate text
 
 ```bash
 python -m app.cli generate "once upon a time" --words 15
 ```
 
-### Customize the number of suggestions
+Example output from one execution:
+
+```text
+Generated text:
+once upon a time discovered adventure the gentle bird dark he walked wind walked through girl kingdom danced on
+```
+
+**Note:** Generated text can vary between executions because the model uses weighted random sampling.
+
+### 3. Customize the number of suggestions
 
 ```bash
 python -m app.cli suggest "the little girl" --limit 3
 ```
 
-## Testing
+## Testing and Evaluation
+
+The project uses Pytest to validate the language model, text processing, probability calculations, text generation and command-line functionality.
 
 Run the complete test suite:
 
@@ -115,36 +143,61 @@ Run the complete test suite:
 python -m pytest -v
 ```
 
-**Current test result: 13 tests passed.**
+**Latest local test result: 13 passed, 0 failed.**
+
+The project was also checked by askThili, which confirmed that the GitHub repository's tests pass.
+
+### Evaluation
+
+The current implementation uses a small built-in short-story corpus and a bigram language model.
+
+Its performance is evaluated through automated unit tests and functional command-line checks.
+
+The model demonstrates next-word prediction and text generation, but it is not intended to produce fully coherent paragraphs like large-scale language models.
 
 ## Project Milestones
 
-- [x] Prepare a text corpus of short stories.
-- [x] Implement n-gram counting and maximum-likelihood probabilities.
-- [x] Add add-k smoothing.
-- [x] Develop text generation by sampling.
-- [x] Create a command-line interface for next-word suggestions.
+- [x] Milestone 1: Prepare a text corpus of short stories.
+- [x] Milestone 2: Implement n-gram counting and maximum-likelihood probabilities.
+- [x] Milestone 3: Implement Add-k smoothing.
+- [x] Milestone 4: Generate text using weighted random sampling.
+- [x] Milestone 5: Develop a command-line interface for next-word suggestions and text generation.
 
 ## How It Works
 
-1. Short stories are converted into lowercase tokens.
+1. Short stories are converted into lowercase tokens using text preprocessing.
 2. The n-gram model calculates word-sequence frequencies.
-3. MLE calculates conditional probabilities.
-4. Add-k smoothing handles unseen word combinations.
-5. Weighted random sampling generates text and next-word suggestions.
+3. Maximum Likelihood Estimation calculates conditional probabilities.
+4. Add-k smoothing assigns non-zero probabilities to unseen word combinations.
+5. Weighted random sampling selects the next word.
+6. The command-line interface displays suggestions or generates text.
+
+## Dataset and Data Source
+
+The project uses a small, built-in collection of sample short stories defined in the source code.
+
+No external dataset or API is required for the core language-model implementation.
 
 ## Limitations
 
-The current implementation uses a small built-in story corpus and a bigram model. Generated text may occasionally contain grammatically incorrect or unrelated word sequences.
+- The current model uses a small built-in corpus.
+- The implementation primarily uses a bigram language model.
+- Generated text may contain grammatically incorrect or unrelated word sequences.
+- Prediction quality depends on the vocabulary and frequency patterns in the training corpus.
+- Random sampling can produce different outputs for the same input.
 
 ## Future Improvements
 
-- Expand the training corpus.
+- Expand the training corpus with additional stories.
 - Implement trigram and higher-order language models.
-- Improve sentence coherence.
+- Improve sentence coherence and contextual relevance.
 - Add a graphical user interface.
 - Support user-provided text datasets.
+- Introduce additional evaluation metrics for prediction quality.
 
 ## Author
 
-Developed as a practical NLP project using Python and statistical language modelling.
+Developed as a practical Natural Language Processing project using Python and statistical language modelling.
+
+**Project Repository:**  
+https://github.com/Shreyaratnakar26/creative-writing-prompter
