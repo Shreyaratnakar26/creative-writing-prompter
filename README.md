@@ -1,3 +1,4 @@
+[![Built with askThili](https://ask.thili.ai/api/v1/public/projects/296e82g45q/badge.svg)](https://ask.thili.ai/b/296e82g45q)
 # Creative Writing Prompter
 
 A Python-based command-line application that helps writers overcome writer's block using context-aware next-word suggestions and text generation.
